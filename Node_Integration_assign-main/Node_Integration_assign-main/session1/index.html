@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 1 - API Integration Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Axios CDN for Task 2 & 5 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">Session 1 • Hands-on API Integration</span>
+      <h1>REST API Integration Dashboard</h1>
+      <p>Demonstration of Fetch API, Axios, response status validation, CORS security errors &amp; error handling</p>
+    </header>
+
+    <div class="grid-layout">
+      
+      <!-- TASK 1 & 4: Playlist Form with response.ok status validation -->
+      <div class="card">
+        <div class="card-title">
+          <span>🎵 Task 1 &amp; 4: Playlist API Form</span>
+        </div>
+        <p class="card-desc">Submits new playlist data via <code>fetch()</code> to <code>jsonplaceholder.typicode.com/posts</code> and validates status using <code>response.ok</code>.</p>
+        
+        <form id="playlistForm">
+          <div class="form-group">
+            <label for="playlistName">Playlist Name</label>
+            <input type="text" id="playlistName" placeholder="e.g. Chill Synthwave 2026" required value="Cyberpunk Vibes">
+          </div>
+          
+          <div class="form-group">
+            <label for="playlistDescription">Description</label>
+            <textarea id="playlistDescription" rows="3" placeholder="Enter playlist details..." required>Retro synthwave tracks for coding sessions</textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span>Submit Playlist (Fetch POST)</span>
+          </button>
+        </form>
+
+        <div id="playlistAlert" class="alert"></div>
+        <div class="console-box" id="playlistConsole">// Network &amp; Fetch Logs will appear here...</div>
+      </div>
+
+      <!-- TASK 2 & 5: Axios Trending Movies & Error Handling -->
+      <div class="card">
+        <div class="card-title">
+          <span>📺 Task 2 &amp; 5: Trending Movies (Axios)</span>
+        </div>
+        <p class="card-desc">Uses <code>axios</code> to fetch shows from TVMaze API, logs the top 5 to console, and handles network/URL errors gracefully.</p>
+        
+        <div class="flex-btn-group">
+          <button type="button" class="btn btn-primary" onclick="fetchTrendingMovies(false)">
+            <span>Fetch Top 5 Shows</span>
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="fetchTrendingMovies(true)" title="Test Task 5 failure state with invalid URL">
+            <span>Simulate API Error</span>
+          </button>
+        </div>
+
+        <ul class="shows-list" id="showsList">
+          <li class="show-item" style="color:var(--text-muted)">Click button above to load TVMaze trending shows...</li>
+        </ul>
+
+        <div id="tvAlert" class="alert"></div>
+        <div class="console-box" id="tvConsole">// Axios Response &amp; Console logs will display here...</div>
+      </div>
+
+      <!-- TASK 3: Login Form & CORS Demonstration -->
+      <div class="card">
+        <div class="card-title">
+          <span>🔒 Task 3: CORS Error Demonstration</span>
+        </div>
+        <p class="card-desc">Attempts to POST login credentials across ports (<code>localhost:5000</code>) to demonstrate Browser Same-Origin Policy and CORS blocking.</p>
+
+        <form onsubmit="triggerCorsError(event)">
+          <div class="form-group">
+            <label for="loginUser">Username</label>
+            <input type="text" id="loginUser" value="alex_dev">
+          </div>
+          <div class="form-group">
+            <label for="loginPass">Password</label>
+            <input type="password" id="loginPass" value="SecretPass123!">
+          </div>
+          <button type="submit" class="btn btn-danger">
+            <span>POST to Cross-Origin (localhost:5000)</span>
+          </button>
+        </form>
+
+        <div id="corsAlert" class="alert"></div>
+        
+        <div class="cors-box">
+          <strong>Recorded Browser CORS Error:</strong><br>
+          <code>Access to fetch at 'http://localhost:5000/api/login' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.</code>
+        </div>
+
+        <div class="console-box" id="corsConsole">// CORS test logs will appear here...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
